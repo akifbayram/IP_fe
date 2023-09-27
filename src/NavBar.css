@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Graduate&display=swap");
+
+.navbar {
+  background-color: #1030ad;
+  color: white;
+  border-bottom: 10px solid #ffcc00;
+  padding: 1em 25% 1em 20%;
+}
+
+.navbar-list {
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item a,
+.navbar-item span {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.navbar-brand a {
+  font-family: "Graduate", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 26px;
+  color: #ffcc00;
+}
+
+li.navbar-item:hover {
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.db-status {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  background-color: #1030ad;
+  border-radius: 0 0 12px 12px;
+  width: 200px;
+  overflow-y: auto;
+  font-weight: bold;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  text-transform: capitalize;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}

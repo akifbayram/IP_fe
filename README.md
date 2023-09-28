@@ -34,19 +34,3 @@ npm start
 ```
 
 The app should now be running on `http://localhost:3000`.
-
-## Dependencies
-
-- `react-router-dom`: For routing within the app.
-- `axios`: For making API calls.
-- `jspdf`: For generating PDF reports.
-
-## Project Structure
-
-- `App.js`: Main application file that sets up routing.
-- `NavBar.js`: Navigation bar component.
-- `HomePage.js`: Displays top movies and actors.
-- `Movies.js`: Page for browsing and searching movies.
-- `Customers.js`: Page for browsing and searching customers.
-- `ActorDetailsCard.js`, `CustomerDetailsCard.js`, `MovieDetailsCard.js`: Components for displaying detailed information.
-- `pdfExporter.js`: Utility for exporting customer rental data to PDF.

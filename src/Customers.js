@@ -1,19 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { fetchData } from './Helpers';
+import { fetchData } from "./Helpers";
 import DetailsCard from "./DetailsCard";
+import ManageCard from "./ManageCard";
 
 function Customers() {
   const [customers, setCustomers] = useState([]); // List of customers
   const [searchQuery, setSearchQuery] = useState(""); // Search query
   const [selectedCustomer, setSelectedCustomer] = useState(null); // Selected customer
+  const [manageMode, setManageMode] = useState(false);
 
   useEffect(() => {
-    const url = searchQuery ? `http://localhost:3001/customers/search?q=${searchQuery}`:"http://localhost:3001/customers";
+    const url = searchQuery
+      ? `http://localhost:3001/customers/search?q=${searchQuery}`
+      : "http://localhost:3001/customers";
     fetchData(url, setCustomers); // Fetch and set customer data
   }, [searchQuery]); // Run whenever `searchQuery` changes
 
-  const selectCustomer = async (id) => { // Selection of a customer
-    fetchData(`http://localhost:3001/customers/details/${id}`, setSelectedCustomer);
+  const selectCustomer = async (id) => {
+    // Selection of a customer
+    fetchData(
+      `http://localhost:3001/customers/details/${id}`,
+      setSelectedCustomer
+    );
+  };
+
+  const switchToManageMode = () => {
+    setManageMode(true);
   };
 
   return (
@@ -40,8 +52,21 @@ function Customers() {
           ))}
         </ul>
       </div>
-      <DetailsCard type="customer" data={selectedCustomer} onClose={() => setSelectedCustomer(null)} // Clear selected customer on close
+      <DetailsCard
+        type="customer"
+        data={selectedCustomer}
+        onClose={() => { setSelectedCustomer(null);setManageMode(false); }}
+        onManage={switchToManageMode}
       />
+      {manageMode && (
+        <ManageCard
+          type="customer"
+          data={selectedCustomer}
+          onClose={() => {
+            setManageMode(false);
+          }}
+        />
+      )}
     </div>
   );
 }

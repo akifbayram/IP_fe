@@ -1,10 +1,10 @@
 :root {
-  --primary-bg-color: #1030AD;
+  --primary-bg-color: #1030ad;
   --border-radius: 8px;
 }
 
 body {
-  background-color: #F0F4F8;
+  background-color: #f0f4f8;
   margin: 0;
   padding: 0;
   color: #333;
@@ -22,7 +22,8 @@ body {
   align-items: center;
 }
 
-.app-header, .close-button {
+.app-header,
+.button {
   background-color: var(--primary-bg-color);
   color: white;
   padding: 1em;
@@ -33,16 +34,17 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   min-width: 500px;
-  max-width: 70vw;
+  max-width: 75vw;
   width: 80%;
   margin: auto;
 }
 
 .app-section {
+  position: relative;
   width: 30%;
-  padding: 5px 20px;
+  padding: 0px;
   margin: 10px 0.5% 0px 0.5%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   min-height: 40vh;
   min-width: 250px;
   max-height: 60vh;
@@ -51,7 +53,21 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h2, h3, h4 {
+.manage-section {
+  width: 24%;
+  padding: 0px;
+  margin: 10px 0.5% 0px 0.5%;
+  background-color: #ffffff;
+  min-height: 40vh;
+  max-height: 60vh;
+  overflow-y: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2,
+h3,
+h4 {
   margin-top: 5px;
   margin-bottom: 0px;
   text-align: center;
@@ -66,13 +82,14 @@ h2, h3, h4 {
 }
 
 .app-section ul li {
-  padding: 5px 0;
+  padding: 5px 5px;
   border-bottom: 1px solid #f2f2f2;
   text-transform: lowercase;
   text-align: center;
 }
 
-.app-section ul li:first-letter, .app-section ul li:first-line {
+.app-section ul li:first-letter,
+.app-section ul li:first-line {
   text-transform: capitalize;
 }
 
@@ -89,8 +106,17 @@ li:hover {
   color: var(--primary-bg-color);
 }
 
-/* Close Button */
-.close-button {
+.close-mark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.button {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
@@ -100,8 +126,48 @@ li:hover {
   cursor: pointer;
 }
 
-.close-button:hover {
+.button:hover {
   background-color: #0056d6;
+}
+
+.card-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-bg-color);
+  padding: 10px;
+  height: 20px;
+  border-radius: 8px 8px 0 0;
+}
+
+.manage-button,
+.close-mark {
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: white;
+  cursor: pointer;
+}
+
+.manage-button:hover,
+.close-mark:hover {
+  color: #007bff;
+}
+
+.card-title {
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.card-content {
+  padding: 5px 10px 10px 10px;
+  overflow-y: auto;
 }
 
 table {
@@ -112,7 +178,8 @@ table {
   text-align: left;
 }
 
-th, td {
+th,
+td {
   padding: 10px;
   border-bottom: 1px solid #f2f2f2;
 }
@@ -127,7 +194,7 @@ tr:hover {
 
 /* Search */
 .search-container {
-  margin: 20px 0;
+  margin: 10px 10px;
   display: flex;
   border: 1px solid var(--primary-bg-color);
   border-radius: var(--border-radius);
@@ -152,21 +219,21 @@ tr:hover {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px; 
-  height: 0px; 
+  width: 6px;
+  height: 0px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--primary-bg-color);
-  border-radius: var(--border-radius); 
+  border-radius: var(--border-radius);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0056d6; 
+  background: #0056d6;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f0f4f8; 
+  background: #f0f4f8;
   border-radius: var(--border-radius);
 }
 

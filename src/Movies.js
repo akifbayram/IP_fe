@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchData } from "./Helpers";
-import DetailsCard from "./DetailsCard";
+import MovieCard from "./MovieCard";
 import ManageCard from "./ManageCard";
 
 function Movies() {
@@ -82,10 +82,12 @@ function Movies() {
           ))}
         </ul>
       </div>
-      <DetailsCard
-        type="movie"
+      <MovieCard
         data={selectedMovie}
-        onClose={() => {setSelectedMovie(null);setManageMode(false);}}
+        onClose={() => {
+          setSelectedMovie(null);
+          setManageMode(false);
+        }}
         onManage={switchToManageMode}
       />
       {manageMode && (

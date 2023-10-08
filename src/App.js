@@ -11,7 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       <header>
-        <NavBar />  
+        <NavBar />
       </header>
       <Routes>
         <Route path="/" element={<HomePage />} />

@@ -118,7 +118,7 @@ li:hover {
 
 .button {
   display: block;
-  margin: 20px auto;
+  margin: 10px auto;
   padding: 10px 20px;
   background-color: var(--primary-bg-color);
   border: none;
@@ -180,7 +180,6 @@ table {
 
 th,
 td {
-  padding: 10px;
   border-bottom: 1px solid #f2f2f2;
 }
 
@@ -207,6 +206,12 @@ tr:hover {
   outline: none;
   border-radius: var(--border-radius);
   width: 60%;
+}
+
+.update-input {
+  border: 1px solid var(--primary-bg-color);
+  border-radius: 4px;
+
 }
 
 .dropdown-box {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchData } from './Helpers';
-import DetailsCard from "./DetailsCard";
+import ActorCard from "./ActorCard";
 
 function Actors() {
   const [actors, setActors] = useState([]); // List of actors
@@ -40,7 +40,7 @@ function Actors() {
           ))}
         </ul>
       </div>
-      <DetailsCard type="actor" data={selectedActor} onClose={() => setSelectedActor(null)}
+      <ActorCard data={selectedActor} onClose={() => setSelectedActor(null)}
       />
     </div>
   );

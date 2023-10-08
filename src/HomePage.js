@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { fetchData } from './Helpers';
-import DetailsCard from "./DetailsCard";
+import React, { useState, useEffect } from "react";
+import { fetchData } from "./Helpers";
+import ActorCard from "./ActorCard";
+import MovieCard from "./MovieCard";
 
 function HomePage() {
   const [movies, setMovies] = useState([]);
@@ -10,13 +11,15 @@ function HomePage() {
 
   // Fetch top movies / actors on page load
   useEffect(() => {
-    fetchData('http://localhost:3001/movies/top', setMovies);
-    fetchData('http://localhost:3001/actors/top', setActors);
+    fetchData("http://localhost:3001/movies/top", setMovies);
+    fetchData("http://localhost:3001/actors/top", setActors);
   }, []);
 
   // Fetch / set details of selected movie / actor
-  const selectMovie = (id) => fetchData(`http://localhost:3001/movies/details/${id}`, setSelectedMovie);
-  const selectActor = (id) => fetchData(`http://localhost:3001/actors/details/${id}`, setSelectedActor);
+  const selectMovie = (id) =>
+    fetchData(`http://localhost:3001/movies/details/${id}`, setSelectedMovie);
+  const selectActor = (id) =>
+    fetchData(`http://localhost:3001/actors/details/${id}`, setSelectedActor);
 
   // Close details cards
   const closeMovieDetails = () => setSelectedMovie(null);
@@ -34,20 +37,23 @@ function HomePage() {
           ))}
         </ul>
       </div>
-      <DetailsCard type="movie" data={selectedMovie} onClose={closeMovieDetails} />
+      <MovieCard data={selectedMovie} onClose={closeMovieDetails} />
       <div className="app-section">
         <h2>Top 5 Actors</h2>
         <ul>
           {actors.map((actor) => (
-            <li key={actor.actor_id} onClick={() => selectActor(actor.actor_id)}>
+            <li
+              key={actor.actor_id}
+              onClick={() => selectActor(actor.actor_id)}
+            >
               {actor.first_name} {actor.last_name}
             </li>
           ))}
         </ul>
       </div>
-      <DetailsCard type="actor" data={selectedActor} onClose={closeActorDetails} />
+      <ActorCard data={selectedActor} onClose={closeActorDetails} />
     </div>
   );
-};
+}
 
 export default HomePage;

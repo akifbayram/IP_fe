@@ -1,6 +1,6 @@
 :root {
   --primary-bg-color: #1030ad;
-  --border-radius: 8px;
+  --border-radius: 0px;
 }
 
 body {
@@ -50,7 +50,7 @@ body {
   max-height: 60vh;
   overflow-y: auto;
   border-radius: var(--border-radius);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .manage-section {
@@ -134,15 +134,14 @@ li:hover {
   position: sticky;
   top: 0;
   display: flex;
-  justify-content: center;
+  row-gap: 0px;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   background-color: var(--primary-bg-color);
   padding: 10px;
-  height: 20px;
-  border-radius: 8px 8px 0 0;
 }
 
-.manage-button,
 .close-mark {
   background: none;
   border: none;
@@ -151,14 +150,43 @@ li:hover {
   cursor: pointer;
 }
 
+
+.card-title {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+
+.manage-button {
+  background-color: white;
+  color: var(--primary-bg-color);
+  border: 2px solid var(--primary-bg-color);
+  border-radius: var(--border-radius);
+  font-size: 13px;
+  font-weight: bold;
+  padding: 5px 16px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.manage-button:hover {
+  background-color: rgb(255, 0, 0);
+  color: white;
+}
+
 .manage-button:hover,
 .close-mark:hover {
-  color: #007bff;
+  background-color: rgb(255, 0, 0);
+  color: white;
 }
 
 .card-title {
   color: white;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: bold;
   margin: 0;
   flex-grow: 1;
@@ -210,8 +238,7 @@ tr:hover {
 
 .update-input {
   border: 1px solid var(--primary-bg-color);
-  border-radius: 4px;
-
+  width: 100%
 }
 
 .dropdown-box {
@@ -238,7 +265,7 @@ tr:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f0f4f8;
+  background: #c4c4c4;
   border-radius: var(--border-radius);
 }
 

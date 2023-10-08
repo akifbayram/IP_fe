@@ -14,13 +14,13 @@ const CustomerCard = ({ data, onClose, onManage }) => {
     <div className="app-section" hidden={!data}>
       {data && (
         <>
-          <div className="card-header">
+          <div className="card-header text-center">
+            <span className="card-title">{`${data.first_name} ${data.last_name}`}</span>
             {onManage && (
               <button className="manage-button" onClick={onManage}>
-                Manage
+                Manage Customer
               </button>
             )}
-            <span className="card-title">{`${data.first_name} ${data.last_name}`}</span>
             <button className="close-mark" onClick={onClose}>
               &times;
             </button>

@@ -6,12 +6,12 @@ const MovieCard = ({ data, onClose, onManage }) => {
       {data && (
         <>
           <div className="card-header">
+            <span className="card-title">{data.title}</span>
             {onManage && (
               <button className="manage-button" onClick={onManage}>
-                Manage
+                Manage Movie
               </button>
             )}
-            <span className="card-title">{data.title}</span>
             <button className="close-mark" onClick={onClose}>
               &times;
             </button>

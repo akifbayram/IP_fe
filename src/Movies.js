@@ -10,6 +10,9 @@ function Movies() {
   const [searchType, setSearchType] = useState("movie_name");
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [manageMode, setManageMode] = useState(false);
+  const sanitizeInput = (input) => {
+    return input.replace(/[#<>"'%;()&+]/g, "");
+  };
 
   useEffect(() => {
     fetchData("http://localhost:3001/movies/genres", setGenres);
@@ -18,8 +21,18 @@ function Movies() {
 
   // Fetch data based on search query, search type, and genres
   useEffect(() => {
-    const url = searchQuery // Based on search query, update the URL
-      ? `http://localhost:3001/movies/search?q=${searchQuery}&type=${searchType}`
+    // Validate 'searchType'
+    const allowedTypes = ["movie_name", "movie_genre", "actor_name"];
+    if (!allowedTypes.includes(searchType)) {
+      console.error("Invalid search type");
+      return;
+    }
+
+    // Sanitize 'searchQuery'
+    const sanitizedQuery = sanitizeInput(searchQuery);
+
+    const url = sanitizedQuery
+      ? `http://localhost:3001/movies/search?q=${sanitizedQuery}&type=${searchType}`
       : "http://localhost:3001/movies/all";
     fetchData(url, setMovies);
   }, [searchQuery, searchType, genres]);
@@ -61,7 +74,7 @@ function Movies() {
               className="search-input"
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(sanitizeInput(e.target.value))} // Sanitize input on change
               placeholder="Search movies by..."
             />
           )}

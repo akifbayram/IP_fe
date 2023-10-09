@@ -23,16 +23,20 @@ function Customers() {
     country: "",
     phone: "",
   });
+  const sanitizeInput = (input) => {
+    return input.replace(/[#<>"'%;()&+]/g, "");
+  };
 
   const [formErrors, setFormErrors] = useState({});
   const [formStatus, setFormStatus] = useState(null);
 
   useEffect(() => {
     fetchData(`http://localhost:3001/countries`, setCountries);
-    const url = searchQuery
-      ? `http://localhost:3001/customers/search?q=${searchQuery}`
+    const sanitizedQuery = sanitizeInput(searchQuery);
+    const url = sanitizedQuery
+      ? `http://localhost:3001/customers/search?q=${sanitizedQuery}`
       : "http://localhost:3001/customers";
-    fetchData(url, setCustomers); // Fetch and set customer data
+    fetchData(url, setCustomers);
 
     if (selectedCustomer) {
       fetchData(
@@ -40,7 +44,7 @@ function Customers() {
         setSelectedCustomer
       );
     }
-  }, [searchQuery, refreshKey]); //
+  }, [searchQuery, refreshKey]);
 
   const selectCustomer = async (id) => {
     // Selection of a customer
@@ -50,16 +54,30 @@ function Customers() {
     );
   };
 
+  const isValidEmail = (email) => {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  };
+
   const validateForm = () => {
     const errors = {};
+    
+    // Check each field to make sure it's not blank
     for (const [key, value] of Object.entries(newCustomer)) {
-      if (!value) {
+      if (!value.trim()) {
         errors[key] = "This field is required";
       }
     }
-    setFormErrors(errors);
+  
+    if (newCustomer.email && !isValidEmail(newCustomer.email)) {
+      errors.email = "Invalid email format";
+    }
+  
+    setFormErrors(errors); 
+  
+    // Form is valid if the errors object still has no properties
     return Object.keys(errors).length === 0;
   };
+  
 
   const addNewCustomer = async () => {
     if (validateForm()) {
@@ -69,20 +87,22 @@ function Customers() {
           newCustomer
         );
         const newCustomerId = response.data.newCustomerId;
-
         if (newCustomerId) {
           fetchData(
             `http://localhost:3001/customers/details/${newCustomerId}`,
             setSelectedCustomer
           );
         }
-
         setRefreshKey((prevKey) => prevKey + 1);
-        setShowAddForm(false);
+        setShowAddForm(false); // Hide the add form
+        setShowSearchContainer(true); // Show the search container
         alert("Customer added successfully!");
       } catch (error) {
         setFormStatus({ type: "error", message: "Failed to add new customer" });
       }
+    } else {
+      setShowAddForm(true); // Keep the add form open
+      setShowSearchContainer(false); // Keep the search container hidden
     }
   };
 
@@ -141,25 +161,44 @@ function Customers() {
               type="text"
               placeholder="First Name"
               onChange={(e) =>
-                setNewCustomer({ ...newCustomer, first_name: e.target.value })
+                setNewCustomer({
+                  ...newCustomer,
+                  first_name: sanitizeInput(e.target.value),
+                })
               }
             />
+            {formErrors.first_name && (
+              <div className="error">{formErrors.first_name}</div>
+            )}
             <input
               className="add-input"
               type="text"
               placeholder="Last Name"
               onChange={(e) =>
-                setNewCustomer({ ...newCustomer, last_name: e.target.value })
+                setNewCustomer({
+                  ...newCustomer,
+                  last_name: sanitizeInput(e.target.value),
+                })
               }
             />
+            {formErrors.last_name && (
+              <div className="error">{formErrors.last_name}</div>
+            )}
             <input
-              className="add-input"
+              className={`add-input ${formErrors.email ? "invalid-input" : ""}`}
               type="email"
               placeholder="Email"
               onChange={(e) =>
-                setNewCustomer({ ...newCustomer, email: e.target.value })
+                setNewCustomer({
+                  ...newCustomer,
+                  email: sanitizeInput(e.target.value),
+                })
               }
             />
+            {formErrors.email && (
+              <div className="error">{formErrors.email}</div>
+            )}
+
             <input
               className="add-input"
               type="text"
@@ -168,6 +207,9 @@ function Customers() {
                 setNewCustomer({ ...newCustomer, address: e.target.value })
               }
             />
+            {formErrors.address && (
+              <div className="error">{formErrors.address}</div>
+            )}
             <input
               className="add-input"
               type="text"
@@ -176,6 +218,9 @@ function Customers() {
                 setNewCustomer({ ...newCustomer, district: e.target.value })
               }
             />
+            {formErrors.district && (
+              <div className="error">{formErrors.district}</div>
+            )}
             <input
               className="add-input"
               type="text"
@@ -184,6 +229,9 @@ function Customers() {
                 setNewCustomer({ ...newCustomer, city: e.target.value })
               }
             />
+            {formErrors.city && (
+              <div className="error">{formErrors.city}</div>
+            )}
             <select
               className="add-dropdown"
               value={newCustomer.country}
@@ -211,15 +259,14 @@ function Customers() {
                 setNewCustomer({ ...newCustomer, phone: e.target.value })
               }
             />
+            {formErrors.phone && (
+              <div className="error">{formErrors.phone}</div>
+            )}
             <div className="buttons-container">
               <button
                 className="submit-button"
                 type="submit"
-                onClick={() => {
-                  addNewCustomer();
-                  setShowAddForm(false);
-                  setShowSearchContainer(true);
-                }}
+                onClick={addNewCustomer}
               >
                 Submit
               </button>
@@ -243,7 +290,7 @@ function Customers() {
                 className="search-input"
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery on change
+                onChange={(e) => setSearchQuery(sanitizeInput(e.target.value))}
                 placeholder="Search customers..."
               />
             </div>

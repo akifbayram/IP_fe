@@ -14,8 +14,6 @@ const ManageCard = ({
   const [customerQuery, setCustomerQuery] = useState("");
   const [customerSearchResults, setCustomerSearchResults] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [rentalStatus, setRentalStatus] = useState(null);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   useEffect(() => {
     setEditData({

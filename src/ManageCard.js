@@ -5,11 +5,6 @@ const ManageCard = ({ type, data, onClose, onEditSuccess, onDeleteSuccess }) => 
   const [showEditFields, setShowEditFields] = useState(false);
   const [editData, setEditData] = useState({});
   const [countries, setCountries] = useState([]);
-  
-  const manageMovie = async () => {
-    // Code to manage movie rentals
-    console.log("Manage movie", data);
-  };
 
   useEffect(() => {
     setEditData({
@@ -66,15 +61,7 @@ const ManageCard = ({ type, data, onClose, onEditSuccess, onDeleteSuccess }) => 
       console.error(error);
     }
   };
-
-  const rentMovie = async () => {
-    // Your axios POST request to rent a movie
-  };
-
-  const returnMovie = async () => {
-    // Your axios POST request to return a movie
-  };
-
+  
   return (
     <div className="manage-section">
       <div className="card-header">
@@ -148,7 +135,7 @@ const ManageCard = ({ type, data, onClose, onEditSuccess, onDeleteSuccess }) => 
                   onChange={handleInputChange}
                 />
               <select
-                className="update-input"
+                className="update-dropdown"
                 name="country"
                 value={editData.country}
                 onChange={handleInputChange}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import axios from 'axios';
 
-const CustomerCard = ({ data, onClose, onManage }) => {
+const CustomerCard = ({ data, onClose, onManage, onMovieReturn }) => {
   const [showRentals, setShowRentals] = useState(false);
 
   const toggleRentals = () => {
@@ -8,7 +9,14 @@ const CustomerCard = ({ data, onClose, onManage }) => {
   };
 
   const markAsReturned = async (rental_id) => {
+    try {
+      await axios.put(`http://localhost:3001/rentals/markAsReturned/${rental_id}`);
+      onMovieReturn(rental_id); // Trigger re-render in parent
+    } catch (error) {
+      console.error('Failed to mark as returned:', error);
+    }
   };
+
 
   return (
     <div className="app-section" hidden={!data}>

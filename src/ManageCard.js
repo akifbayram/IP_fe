@@ -76,16 +76,20 @@ const ManageCard = ({
   };
 
   const deleteCustomer = async () => {
-    try {
-      const res = await axios.delete(
-        `http://localhost:3001/customers/delete/${data.customer_id}`
-      );
-      console.log(res.data.message); // Display success message
-      onDeleteSuccess();
-    } catch (error) {
-      console.error(error);
+    const confirmDelete = window.confirm("Are you sure you want to delete this customer?");
+    if (confirmDelete) {
+      try {
+        const res = await axios.delete(
+          `http://localhost:3001/customers/delete/${data.customer_id}`
+        );
+        console.log(res.data.message); // Display success message
+        onDeleteSuccess();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
+  
 
   const manageMovie = async () => {
     const confirmRent = window.confirm(
@@ -126,18 +130,18 @@ const ManageCard = ({
             <div className="selected-info">
               <div>
                 Selected Movie:
-                <br />
+                <br /> 
                 <b> {data.title}</b>
               </div>
               </div>
-            <div className="selected-info">
+            <div className={`selected-info ${!selectedCustomer ? 'selected-info-red' : 'selected-info'}`}>
               <div>
                 Selected Customer:
                 <br />
                 <b>
                   {" "}
                   {selectedCustomer
-                    ? `${selectedCustomer.first_name} ${selectedCustomer.last_name}`
+                    ? `${selectedCustomer.customer_id}: ${selectedCustomer.first_name} ${selectedCustomer.last_name}`
                     : "None Selected"}
                 </b>
               </div>
@@ -160,7 +164,8 @@ const ManageCard = ({
               Search
             </button>
             <ul className="customer-list">
-              {customerSearchResults.map((customer) => (
+            {customerSearchResults.length > 0 ? (
+              customerSearchResults.map((customer) => (
                 <li
                   className="customer-item"
                   key={customer.customer_id}
@@ -169,8 +174,11 @@ const ManageCard = ({
                   {customer.customer_id}: {customer.first_name}{" "}
                   {customer.last_name}
                 </li>
-              ))}
-            </ul>
+    ))
+  ) : (
+    <li className="no-results">No results</li>
+  )}
+</ul>
           </>
         )}
         {type === "customer" && (

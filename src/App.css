@@ -159,6 +159,10 @@ li:hover {
   cursor: pointer;
 }
 
+.selected-info.selected-info-red {
+  background-color: rgba(255, 0, 0, 0.315);
+}
+
 .rent-button {
   background-color: var(--primary-bg-color);
   color: white;

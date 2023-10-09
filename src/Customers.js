@@ -238,28 +238,33 @@ function Customers() {
         )}
         {showSearchContainer && (
           <>
-        <div className="search-container">
-          <input
-            className="search-input"
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery on change
-            placeholder="Search customers..."
-          />
-        </div>
-        
-        <ul className="customer-list">
-          {customers.map((customer) => (
-            <li
-              className="customer-item"
-              key={customer.customer_id}
-              onClick={() => selectCustomer(customer.customer_id)} // Select customer
-            >
-              {customer.customer_id}: {customer.first_name} {customer.last_name}
-            </li>
-          ))}
-        </ul>
-        </>
+            <div className="search-container">
+              <input
+                className="search-input"
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery on change
+                placeholder="Search customers..."
+              />
+            </div>
+
+            <ul className="customer-list">
+              {customers.length > 0 ? (
+                customers.map((customer) => (
+                  <li
+                    className="customer-item"
+                    key={customer.customer_id}
+                    onClick={() => selectCustomer(customer.customer_id)}
+                  >
+                    {customer.customer_id}: {customer.first_name}{" "}
+                    {customer.last_name}
+                  </li>
+                ))
+              ) : (
+                <li className="no-results">No results</li>
+              )}
+            </ul>
+          </>
         )}
       </div>
       <CustomerCard

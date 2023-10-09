@@ -12,6 +12,7 @@ function Customers() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [showAddForm, setShowAddForm] = useState(false);
   const [countries, setCountries] = useState([]);
+  const [showSearchContainer, setShowSearchContainer] = useState(true);
   const [newCustomer, setNewCustomer] = useState({
     first_name: "",
     last_name: "",
@@ -117,18 +118,17 @@ function Customers() {
   return (
     <div id="app-main" className="app-main">
       <div className="app-section">
-        <div className="search-container">
-          <input
-            className="search-input"
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery on change
-            placeholder="Search customers..."
-          />
-        </div>
-        <button className="button" onClick={() => setShowAddForm(!showAddForm)}>
+        <button
+          className="add-customer-button"
+          onClick={() => {
+            setShowAddForm(!showAddForm);
+            setShowSearchContainer(showAddForm);
+          }}
+        >
+          {" "}
           Add Customer
         </button>
+
         {formStatus && (
           <div className={`form-status ${formStatus.type}`}>
             {formStatus.message}
@@ -222,13 +222,28 @@ function Customers() {
               <button
                 className="cancel-button"
                 type="button"
-                onClick={() => setShowAddForm(false)}
+                onClick={() => {
+                  setShowAddForm(false);
+                  setShowSearchContainer(true);
+                }}
               >
                 Cancel
               </button>
             </div>
           </div>
         )}
+        {showSearchContainer && (
+          <>
+        <div className="search-container">
+          <input
+            className="search-input"
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery on change
+            placeholder="Search customers..."
+          />
+        </div>
+        
         <ul className="customer-list">
           {customers.map((customer) => (
             <li
@@ -240,6 +255,8 @@ function Customers() {
             </li>
           ))}
         </ul>
+        </>
+        )}
       </div>
       <CustomerCard
         data={selectedCustomer}

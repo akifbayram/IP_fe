@@ -81,8 +81,7 @@ const CustomerCard = ({ data, onClose, onManage, onMovieReturn }) => {
                           new Date(rental.return_date).toLocaleDateString()
                         ) : (
                           <>
-                            Not yet
-                            <button
+                            <button className="return-button"
                               onClick={() => markAsReturned(rental.rental_id)}
                             >
                               Mark as Returned

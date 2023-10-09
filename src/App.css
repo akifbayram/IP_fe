@@ -82,6 +82,7 @@ h4 {
 }
 
 .app-section ul li {
+  margin-top: 5px;
   padding: 5px 5px;
   border-bottom: 1px solid #f2f2f2;
   text-transform: lowercase;
@@ -94,6 +95,27 @@ h4 {
 }
 
 .app-section ul li:last-child {
+  border-bottom: none;
+}
+
+.card-content ul {
+  margin: 0;
+  padding: 0;
+}
+
+.card-content ul li {
+  padding: 5px 5px;
+  border-bottom: 1px solid #f2f2f2;
+  text-transform: lowercase;
+  text-align: center;
+}
+
+.card-content ul li:first-letter,
+.card-content ul li:first-line {
+  text-transform: capitalize;
+}
+
+.card-content ul li:last-child {
   border-bottom: none;
 }
 
@@ -122,19 +144,34 @@ li:hover {
   padding: 10px 20px;
   background-color: var(--primary-bg-color);
   border: none;
-  border-radius: var(--border-radius);
   cursor: pointer;
 }
 
-.cancel-button, .submit-button {
+.cancel-button,
+.submit-button {
+  display: block;
   background-color: var(--primary-bg-color);
   color: white;
   margin: 10px 10px;
   padding: 10px 20px;
   background-color: var(--primary-bg-color);
   border: none;
-  border-radius: var(--border-radius);
   cursor: pointer;
+}
+
+.rent-button {
+  background-color: var(--primary-bg-color);
+  color: white;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+}
+
+.rent-button:hover {
+  background-color: rgb(0, 192, 16);
+  color: white;
 }
 
 .buttons-container {
@@ -144,6 +181,48 @@ li:hover {
 
 .button:hover {
   background-color: #0056d6;
+}
+
+.add-customer-button {
+  display: block;
+  justify-content: center;
+  background-color: var(--primary-bg-color);
+  color: white;
+  margin: 10px auto;
+  padding: 10px 40px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+}
+
+.add-customer-button:hover {
+  background-color: rgb(0, 192, 16);
+  color: white;
+}
+
+
+.return-button {
+  background-color: var(--primary-bg-color);
+  color: white;
+  margin: 5px auto;
+  padding: 3px 3px;
+  background-color: var(--primary-bg-color);
+  border: none;
+  cursor: pointer;
+}
+
+.return-button:hover {
+  background-color: rgb(0, 192, 16);
+  color: white;
+}
+
+.selected-info {
+  background-color: #f0f4f8;
+  padding: 5px;
+  margin: 5px;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid var(--primary-bg-color);
 }
 
 .card-header {
@@ -166,7 +245,6 @@ li:hover {
   cursor: pointer;
 }
 
-
 .card-title {
   color: white;
   font-size: 18px;
@@ -175,7 +253,6 @@ li:hover {
   flex-grow: 1;
   text-align: center;
 }
-
 
 .manage-button {
   background-color: white;
@@ -256,7 +333,8 @@ tr:hover {
   width: 60%;
 }
 
-.update-input, .add-input {
+.update-input,
+.add-input {
   border: 1px solid var(--primary-bg-color);
   width: 80%;
   margin: 5px 10px 0px 10px;
@@ -271,7 +349,8 @@ tr:hover {
   cursor: pointer;
 }
 
-.add-dropdown, .update-dropdown {
+.add-dropdown,
+.update-dropdown {
   border: 1px solid var(--primary-bg-color);
   width: 87%;
   font-size: 13px;

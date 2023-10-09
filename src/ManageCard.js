@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const ManageCard = ({ type, data, onClose, onEditSuccess, onDeleteSuccess }) => {
+const ManageCard = ({
+  type,
+  data,
+  onClose,
+  onEditSuccess,
+  onDeleteSuccess,
+}) => {
   const [showEditFields, setShowEditFields] = useState(false);
   const [editData, setEditData] = useState({});
   const [countries, setCountries] = useState([]);
+  const [customerQuery, setCustomerQuery] = useState("");
+  const [customerSearchResults, setCustomerSearchResults] = useState([]);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [rentalStatus, setRentalStatus] = useState(null);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   useEffect(() => {
     setEditData({
@@ -37,13 +48,27 @@ const ManageCard = ({ type, data, onClose, onEditSuccess, onDeleteSuccess }) => 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditData(prevState => ({ ...prevState, [name]: value }));
+    setEditData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  // Search for customers
+  const searchCustomers = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3001/customers/search?q=${customerQuery}`
+      );
+      setCustomerSearchResults(res.data);
+    } catch (error) {
+      console.error("Failed to search customers:", error);
+    }
   };
 
   const editCustomer = async () => {
     try {
-      console.log("Sending this payload to backend:", editData);  // Log the payload
-      await axios.put(`http://localhost:3001/customers/update/${data.customer_id}`, editData);
+      await axios.put(
+        `http://localhost:3001/customers/update/${data.customer_id}`,
+        editData
+      );
       onEditSuccess();
     } catch (error) {
       console.error("Failed to edit customer:", error);
@@ -56,12 +81,35 @@ const ManageCard = ({ type, data, onClose, onEditSuccess, onDeleteSuccess }) => 
         `http://localhost:3001/customers/delete/${data.customer_id}`
       );
       console.log(res.data.message); // Display success message
-      onDeleteSuccess(); 
+      onDeleteSuccess();
     } catch (error) {
       console.error(error);
     }
   };
-  
+
+  const manageMovie = async () => {
+    const confirmRent = window.confirm(
+      `Are you sure you want to rent out ${data.title} to ${selectedCustomer.first_name} ${selectedCustomer.last_name}?`
+    );
+    if (confirmRent) {
+      console.log("Sending this to backend:", {
+        film_id: data.film_id,
+        customer_id: selectedCustomer.customer_id,
+      });
+      try {
+        await axios.post(`http://localhost:3001/rentals/new`, {
+          film_id: data.film_id,
+          customer_id: selectedCustomer.customer_id,
+        });
+        window.alert("Rental successful!");
+        // Reload the page info here, if necessary
+      } catch (error) {
+        window.alert("Rental failed!");
+        console.error(error);
+      }
+    }
+  };
+
   return (
     <div className="manage-section">
       <div className="card-header">
@@ -69,16 +117,60 @@ const ManageCard = ({ type, data, onClose, onEditSuccess, onDeleteSuccess }) => 
           <button className="close-mark" onClick={onClose}>
             &times;
           </button>
-          {type === "movie" ? data.title : `Customer Management`}
+          {type === "movie" ? "Rental Management" : `Customer Management`}
         </span>
       </div>
-
       <div className="card-content">
         {type === "movie" && (
           <>
-            <button className="button" onClick={manageMovie}>
-              Rent Out
+            <div className="selected-info">
+              <div>
+                Selected Movie:
+                <br />
+                <b> {data.title}</b>
+              </div>
+              </div>
+            <div className="selected-info">
+              <div>
+                Selected Customer:
+                <br />
+                <b>
+                  {" "}
+                  {selectedCustomer
+                    ? `${selectedCustomer.first_name} ${selectedCustomer.last_name}`
+                    : "None Selected"}
+                </b>
+              </div>
+            </div>
+            {selectedCustomer && (
+              <button className="rent-button" onClick={manageMovie}>
+                Confirm
+              </button>
+            )}
+            <div className="search-container">
+              <input
+                className="search-input"
+                type="text"
+                value={customerQuery}
+                onChange={(e) => setCustomerQuery(e.target.value)}
+                placeholder="Search for customer..."
+              />
+            </div>
+            <button className="button" onClick={searchCustomers}>
+              Search
             </button>
+            <ul className="customer-list">
+              {customerSearchResults.map((customer) => (
+                <li
+                  className="customer-item"
+                  key={customer.customer_id}
+                  onClick={() => setSelectedCustomer(customer)}
+                >
+                  {customer.customer_id}: {customer.first_name}{" "}
+                  {customer.last_name}
+                </li>
+              ))}
+            </ul>
           </>
         )}
         {type === "customer" && (
@@ -134,19 +226,21 @@ const ManageCard = ({ type, data, onClose, onEditSuccess, onDeleteSuccess }) => 
                   value={editData.district}
                   onChange={handleInputChange}
                 />
-              <select
-                className="update-dropdown"
-                name="country"
-                value={editData.country}
-                onChange={handleInputChange}
-              >
-                <option value="" disabled>Select Country</option>
-                {countries.map((c) => (
-                  <option key={c.country_id} value={c.country}>
-                    {c.country}
+                <select
+                  className="update-dropdown"
+                  name="country"
+                  value={editData.country}
+                  onChange={handleInputChange}
+                >
+                  <option value="" disabled>
+                    Select Country
                   </option>
-                ))}
-              </select>
+                  {countries.map((c) => (
+                    <option key={c.country_id} value={c.country}>
+                      {c.country}
+                    </option>
+                  ))}
+                </select>
                 <input
                   className="update-input"
                   type="text"

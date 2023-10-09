@@ -215,7 +215,11 @@ function Customers() {
               <button
                 className="submit-button"
                 type="submit"
-                onClick={addNewCustomer}
+                onClick={() => {
+                  addNewCustomer();
+                  setShowAddForm(false);
+                  setShowSearchContainer(true);
+                }}
               >
                 Submit
               </button>

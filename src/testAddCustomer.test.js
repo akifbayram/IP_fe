@@ -3,12 +3,10 @@ import React from "react";
 import {
   render,
   screen,
-  fireEvent,
-  waitFor
+  fireEvent
 } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Customers from "./Customers";
-import axios from "axios";
 
 describe("CustomerPage component", () => {
   const randomName = `Test${Math.random().toString(36).substring(8)}`;

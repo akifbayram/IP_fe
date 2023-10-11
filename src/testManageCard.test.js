@@ -1,7 +1,6 @@
 // src/ManageCard.test.js
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';  // for the "toBeInTheDocument" matcher
 import ManageCard from './ManageCard';
 import axios from 'axios';
 

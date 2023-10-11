@@ -239,7 +239,7 @@ function Customers() {
               onChange={(e) =>
                 setNewCustomer({ ...newCustomer, country: e.target.value })
               }
-            ><br/>
+            >
               <option value="" disabled>
                 Select Country
               </option>

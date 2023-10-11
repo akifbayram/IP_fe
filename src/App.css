@@ -41,12 +41,13 @@ body {
 
 .app-section {
   position: relative;
-  width: 30%;
+  /* width: 30%; */
   padding: 0px;
   margin: 10px 0.5% 0px 0.5%;
   background-color: #ffffff;
   min-height: 40vh;
-  min-width: 250px;
+  min-width: 300px;
+  max-width: 350px;
   max-height: 60vh;
   overflow-y: auto;
   border-radius: var(--border-radius);
@@ -54,11 +55,12 @@ body {
 }
 
 .manage-section {
-  width: 24%;
+  /* width: 24%; */
   padding: 0px;
   margin: 10px 0.5% 0px 0.5%;
   background-color: #ffffff;
   min-height: 40vh;
+  min-width: 250px;
   max-height: 60vh;
   overflow-y: auto;
   border-radius: var(--border-radius);
@@ -297,6 +299,7 @@ li:hover {
 .card-content {
   padding: 5px 10px 10px 10px;
   overflow-y: auto;
+  text-align: center;
 }
 
 table {
@@ -340,7 +343,7 @@ tr:hover {
 .update-input,
 .add-input {
   border: 1px solid var(--primary-bg-color);
-  width: 80%;
+  /* width: 80%; */
   margin: 5px 10px 0px 10px;
   padding: 5px 10px;
 }
@@ -356,7 +359,7 @@ tr:hover {
 .add-dropdown,
 .update-dropdown {
   border: 1px solid var(--primary-bg-color);
-  width: 87%;
+  /* width: 80%; */
   font-size: 13px;
   margin: 5px 10px 0px 10px;
   padding: 5px 10px;

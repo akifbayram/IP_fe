@@ -8,7 +8,7 @@ describe('Customers Search Functionality', () => {
 
     // Simulate typing ID
     fireEvent.change(screen.getByPlaceholderText('Search customers...'), {
-      target: { value: '6' },
+      target: { value: '612' },
     });
 
     await waitFor(() => new Promise((resolve) => setTimeout(resolve, 900)));

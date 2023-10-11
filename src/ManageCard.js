@@ -196,48 +196,48 @@ const ManageCard = ({
                   name="first_name"
                   value={editData.first_name}
                   onChange={handleInputChange}
-                />
+                /><br/>
                 <input
                   className="update-input"
                   type="text"
                   name="last_name"
                   value={editData.last_name}
                   onChange={handleInputChange}
-                />
+                /><br/>
                 <input
                   className="update-input"
                   type="text"
                   name="email"
                   value={editData.email}
                   onChange={handleInputChange}
-                />
+                /><br/>
                 <input
                   className="update-input"
                   type="text"
                   name="address"
                   value={editData.address}
                   onChange={handleInputChange}
-                />
+                /><br/>
                 <input
                   className="update-input"
                   type="text"
                   name="city"
                   value={editData.city}
                   onChange={handleInputChange}
-                />
+                /><br/>
                 <input
                   className="update-input"
                   type="text"
                   name="district"
                   value={editData.district}
                   onChange={handleInputChange}
-                />
+                /><br/>
                 <select
                   className="update-dropdown"
                   name="country"
                   value={editData.country}
                   onChange={handleInputChange}
-                >
+                ><br/>
                   <option value="" disabled>
                     Select Country
                   </option>
@@ -246,14 +246,14 @@ const ManageCard = ({
                       {c.country}
                     </option>
                   ))}
-                </select>
+                </select><br/>
                 <input
                   className="update-input"
                   type="text"
                   name="phone"
                   value={editData.phone}
                   onChange={handleInputChange}
-                />
+                /><br/>
 
                 <button className="button" type="button" onClick={editCustomer}>
                   Update Info

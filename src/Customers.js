@@ -20,7 +20,7 @@ function Customers() {
     address: "",
     district: "",
     city: "",
-    country: "",
+    country: "Afghanistan",
     phone: "",
   });
   const sanitizeInput = (input) => {
@@ -166,7 +166,7 @@ function Customers() {
                   first_name: sanitizeInput(e.target.value),
                 })
               }
-            />
+            /><br/>
             {formErrors.first_name && (
               <div className="error">{formErrors.first_name}</div>
             )}
@@ -180,7 +180,7 @@ function Customers() {
                   last_name: sanitizeInput(e.target.value),
                 })
               }
-            />
+            /><br/>
             {formErrors.last_name && (
               <div className="error">{formErrors.last_name}</div>
             )}
@@ -194,7 +194,7 @@ function Customers() {
                   email: sanitizeInput(e.target.value),
                 })
               }
-            />
+            /><br/>
             {formErrors.email && (
               <div className="error">{formErrors.email}</div>
             )}
@@ -206,7 +206,7 @@ function Customers() {
               onChange={(e) =>
                 setNewCustomer({ ...newCustomer, address: e.target.value })
               }
-            />
+            /><br/>
             {formErrors.address && (
               <div className="error">{formErrors.address}</div>
             )}
@@ -217,7 +217,7 @@ function Customers() {
               onChange={(e) =>
                 setNewCustomer({ ...newCustomer, district: e.target.value })
               }
-            />
+            /><br/>
             {formErrors.district && (
               <div className="error">{formErrors.district}</div>
             )}
@@ -228,17 +228,18 @@ function Customers() {
               onChange={(e) =>
                 setNewCustomer({ ...newCustomer, city: e.target.value })
               }
-            />
+            /><br/>
             {formErrors.city && (
               <div className="error">{formErrors.city}</div>
             )}
             <select
+              id="add-dropdown"
               className="add-dropdown"
               value={newCustomer.country}
               onChange={(e) =>
                 setNewCustomer({ ...newCustomer, country: e.target.value })
               }
-            >
+            ><br/>
               <option value="" disabled>
                 Select Country
               </option>
@@ -247,7 +248,7 @@ function Customers() {
                   {country.country}
                 </option>
               ))}
-            </select>
+            </select><br/>
             {formErrors.country && (
               <div className="error">{formErrors.country}</div>
             )}
@@ -258,7 +259,7 @@ function Customers() {
               onChange={(e) =>
                 setNewCustomer({ ...newCustomer, phone: e.target.value })
               }
-            />
+            /><br/>
             {formErrors.phone && (
               <div className="error">{formErrors.phone}</div>
             )}

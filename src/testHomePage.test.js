@@ -23,7 +23,7 @@ describe('HomePage Component', () => {
     fireEvent.click(screen.getByText(/Juggler hardly/i));
 
     // Debug
-    screen.debug();
+    // screen.debug();
 
     await waitFor(() => {
       expect(screen.getByText(/Release Year/i)).toBeInTheDocument();

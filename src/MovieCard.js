@@ -9,7 +9,7 @@ const MovieCard = ({ data, onClose, onManage }) => {
             <span className="card-title">{data.title}</span>
             {onManage && (
               <button className="manage-button" onClick={onManage}>
-                Manage Movie
+                Rent Movie
               </button>
             )}
             <button className="close-mark" onClick={onClose}>
